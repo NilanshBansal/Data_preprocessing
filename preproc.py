@@ -7,6 +7,12 @@ newStopWords = ['RT','Re']
 stop_words.extend(newStopWords)
 stop_words=set(stop_words)
 
+def remove_unwanted_words(sentence):
+    tokens = word_tokenize(sentence)
+    filtered_sentence = [w for w in tokens if not w in stop_words]
+    filtered_sentence = ' '.join(filtered_sentence)
+    return filtered_sentence
+
 def elim_stopwords(sentence):
     tokens = word_tokenize(sentence)
     
@@ -20,8 +26,7 @@ def elim_stopwords(sentence):
             tokens = left + joined + right
             i_offset += 1
 
-    filtered_sentence = [w for w in tokens if not w in stop_words] 
-    # filtered_sentence = [w for w in tokens if not w in ['RT','Re']] 
+    filtered_sentence = [w for w in tokens if not w in ['RT','Re']] 
     filtered_sentence = ' '.join(filtered_sentence)
     return filtered_sentence
 
@@ -107,12 +112,15 @@ tests = [
 ]
 
 # tests = [
-#     "RT @iamFink: @SamanthaSpice that's my excited face.",
 #     "@lakatos88 Python framework wasn't good.",
+#     "@peter I really love that shirt at #Macy. http://bet.ly//WjdiW4",
+#     "I love C++",
+#     "I do not love c++",
+#     "I don't love c++",
 # ]
 
 
 for t in tests:
     # print(elim_stopwords(strip_all_entities(strip_links(t))))
     # print(strip_all_entities(strip_links(t)))
-    print(negreplace(cleantext(elim_stopwords(strip_all_entities(strip_links(t))))))
+    print(remove_unwanted_words(negreplace(cleantext(elim_stopwords(strip_all_entities(strip_links(t)))))))
