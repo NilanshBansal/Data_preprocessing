@@ -96,7 +96,14 @@ def negreplace(string):
     neg_sentence = neg_sentence.strip()
     return neg_sentence
 
-
+def preprocess(sentence):
+    links_removed = strip_links(sentence)
+    entities_removed = strip_all_entities(links_removed)
+    stopwords_removed = elim_stopwords(entities_removed)
+    clean_text = cleantext(stopwords_removed)
+    negation_replaced = negreplace(clean_text)
+    final_sentence = remove_unwanted_words(negation_replaced)
+    return final_sentence
 
 tests = [
     "I am at Starbucks http://4sh.com/samqUI (7419 3rd ave, at 75th, Brooklyn)",
@@ -111,16 +118,6 @@ tests = [
     "I don't love c++",
 ]
 
-# tests = [
-#     "@lakatos88 Python framework wasn't good.",
-#     "@peter I really love that shirt at #Macy. http://bet.ly//WjdiW4",
-#     "I love C++",
-#     "I do not love c++",
-#     "I don't love c++",
-# ]
-
 
 for t in tests:
-    # print(elim_stopwords(strip_all_entities(strip_links(t))))
-    # print(strip_all_entities(strip_links(t)))
-    print(remove_unwanted_words(negreplace(cleantext(elim_stopwords(strip_all_entities(strip_links(t)))))))
+    print(preprocess(t))
