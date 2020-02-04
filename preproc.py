@@ -7,11 +7,11 @@ newStopWords = ['RT','Re']
 stop_words.extend(newStopWords)
 stop_words=set(stop_words)
 
-def remove_unwanted_words(sentence):
-    tokens = word_tokenize(sentence)
-    filtered_sentence = [w for w in tokens if not w in stop_words]
-    filtered_sentence = ' '.join(filtered_sentence)
-    return filtered_sentence
+# def remove_unwanted_words(sentence):
+#     tokens = word_tokenize(sentence)
+#     filtered_sentence = [w for w in tokens if not w in stop_words]
+#     filtered_sentence = ' '.join(filtered_sentence)
+#     return filtered_sentence
 
 def elim_stopwords(sentence):
     tokens = word_tokenize(sentence)
@@ -102,8 +102,8 @@ def preprocess(sentence):
     stopwords_removed = elim_stopwords(entities_removed)
     clean_text = cleantext(stopwords_removed)
     negation_replaced = negreplace(clean_text)
-    final_sentence = remove_unwanted_words(negation_replaced)
-    return final_sentence
+    # final_sentence = remove_unwanted_words(negation_replaced)
+    return negation_replaced
 
 tests = [
     "I am at Starbucks http://4sh.com/samqUI (7419 3rd ave, at 75th, Brooklyn)",
